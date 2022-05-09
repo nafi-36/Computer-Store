@@ -30,7 +30,7 @@ export default class Product extends React.Component {
 
     headerConfig = () => {
         let header = {
-            headers: {Authorization: `Bearer ${this.state.token}`}
+            headers: { Authorization: `Bearer ${this.state.token}` }
         }
         return header
     }
@@ -73,25 +73,25 @@ export default class Product extends React.Component {
         let url = ""
         if (this.state.action === "insert") {
             url = "http://localhost:8000/product"
-            axios.post(url, form)
-            .then(res => {
-                this.getProduct()
-                this.handleClose()
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+            axios.post(url, form, this.headerConfig())
+                .then(res => {
+                    this.getProduct()
+                    this.handleClose()
+                })
+                .catch(err => {
+                    console.log(err.message)
+                })
         }
         else if (this.state.action === "update") {
             url = "http://localhost:8000/product/" + this.state.product_id
-            axios.put(url, form)
-            .then(res => {
-                this.getProduct()
-                this.handleClose()
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+            axios.put(url, form, this.headerConfig())
+                .then(res => {
+                    this.getProduct()
+                    this.handleClose()
+                })
+                .catch(err => {
+                    console.log(err.message)
+                })
         }
     }
 
@@ -122,14 +122,14 @@ export default class Product extends React.Component {
     handleDrop = (id) => {
         let url = "http://localhost:8000/product/" + id
         if (window.confirm("Apakah anda yakin ingin menghapus data ini ?")) {
-            axios.delete(url)
-            .then(res => {
-                console.log(res.data.message)
-                this.getProduct()
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+            axios.delete(url, this.headerConfig())
+                .then(res => {
+                    console.log(res.data.message)
+                    this.getProduct()
+                })
+                .catch(err => {
+                    console.log(err.message)
+                })
         }
     }
 
